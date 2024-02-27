@@ -1,0 +1,59 @@
+﻿<Window x:Class="PictureFind.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PictureFind"
+        mc:Ignorable="d"
+        Title="Picture Find" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="Black" BorderThickness="2">
+            <Grid Background="DarkGray" Grid.Column="0">
+                <StackPanel Orientation="Vertical" Margin="30,0,0,0">
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="主圖片" FontSize="17" Margin="-5,0,0,0"/>
+                        <RadioButton x:Name="MainImage_radio" GroupName="DisplayImage" IsChecked="True" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBox x:Name="MainFileName_textbox" FontSize="17" Margin="0,0,20,0" />
+                    <StackPanel Orientation="Horizontal" Margin="-5,0,0,10">
+                        <Label Content="選擇檔案:" FontSize="17"/>
+                        <Button x:Name="MainFileSelect_button" Content="選擇" FontSize="15" Height="23" Width="55" Click="MainFileSelect_button_Click"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="目標圖片" FontSize="17" Margin="-5,0,0,-5"/>
+                        <RadioButton x:Name="TargetImage_radio" GroupName="DisplayImage" VerticalAlignment="Center" Margin="0,4,0,0"/>
+                    </StackPanel>
+                    <TextBox x:Name="TargetFileName_textbox" FontSize="17" Margin="0,0,20,0" />
+                    <StackPanel Orientation="Horizontal" Margin="-5,0,0,10">
+                        <Label Content="選擇檔案:" FontSize="17"/>
+                        <Button x:Name="TargetFileSelect_button" Content="選擇" FontSize="15" Height="23" Width="55" Click="TargetFileSelect_button_Click"/>
+                    </StackPanel>
+
+                    <Label Content="找圖選項" FontSize="15"  Margin="-5,0,0,0"/>
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton x:Name="SIFT_radio" GroupName="SearchOption" IsChecked="true" Content="SIFT" FontSize="15" Margin="0,0,20,0"/>
+                        <RadioButton x:Name="GB_radio"  GroupName="SearchOption" Content="高斯模糊" FontSize="15" Margin="0,0,20,0"/>
+                        <RadioButton x:Name="IP_radio" GroupName="SearchOption" Content="忽略粉色" FontSize="15"/>
+                    </StackPanel>
+
+                    <Button x:Name="FindImage_button" Content="尋找" FontSize="17" Margin="40,10,70,10" Click="FindImage_button_Click"/>
+                    <StackPanel Orientation="Vertical" Background="White" Margin="0,0,20,0">
+                        <Label x:Name="LeftUpCoordinate_label" Content="左上座標: x = -1 , y = -1" FontSize="17"/>
+                        <Label x:Name="MidCoordinate_label" Content="中央座標: x = -1 , y = -1" FontSize="17"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Grid Background="LightGray" Grid.Column="1">
+            <Border BorderBrush="Black" BorderThickness="2">
+                <Image x:Name="Target_image"/>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
