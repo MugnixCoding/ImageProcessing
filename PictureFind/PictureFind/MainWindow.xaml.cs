@@ -113,34 +113,36 @@ namespace PictureFind
                 double threshhold = double.Parse(Threshhold_textbox.Text) / 100;
                 int x = -1;
                 int y = -1;
+                bool find = false;
                 if (SIFT_radio.IsChecked==true)
                 {
-                    if(pictureFinder.FindImageSIFT(MainFileName_textbox.Text, TargetFileName_textbox.Text, threshhold,out x,out y))
-                    {
-                        LeftUpCoordinate_label.Content = "左上座標: x = " + (x-(tartgetPicInfo.width/2)) + " , y = " + (y-(tartgetPicInfo.height/2));
-                        MidCoordinate_label.Content = "中央座標: x = " + x + " , y = " + y;
-                    }
+                    find = pictureFinder.FindImageSIFT(MainFileName_textbox.Text, TargetFileName_textbox.Text, threshhold, out x, out y);
+                    
                 }
                 else if (IP_radio.IsChecked==true)
                 {
-                    if (pictureFinder.FindImageNoPink(MainFileName_textbox.Text, TargetFileName_textbox.Text, threshhold, out x, out y))
-                    {
-                        LeftUpCoordinate_label.Content = "左上座標: x = " + (x - (tartgetPicInfo.width / 2)) + " , y = " + (y - (tartgetPicInfo.height / 2));
-                        MidCoordinate_label.Content = "中央座標: x = " + x + " , y = " + y;
-                    }
+                    find = pictureFinder.FindImageNoPink(MainFileName_textbox.Text, TargetFileName_textbox.Text, threshhold, out x, out y);
                 }
                 else if(GB_radio.IsChecked==true)
                 {
-                    if (pictureFinder.FindImageGB(MainFileName_textbox.Text, TargetFileName_textbox.Text, threshhold, out x, out y))
-                    {
-                        LeftUpCoordinate_label.Content = "左上座標: x = " + (x - (tartgetPicInfo.width / 2)) + " , y = " + (y - (tartgetPicInfo.height / 2));
-                        MidCoordinate_label.Content = "中央座標: x = " + x + " , y = " + y;
-                    }
+                    find =pictureFinder.FindImageGB(MainFileName_textbox.Text, TargetFileName_textbox.Text, threshhold, out x, out y);
                 }
                 else
                 {
                     MessageBox.Show("請選擇搜尋條件");
                     return;
+                }
+
+                if (find)
+                {
+                    LeftUpCoordinate_label.Content = "左上座標: x = " + (x - (tartgetPicInfo.width / 2)) + " , y = " + (y - (tartgetPicInfo.height / 2));
+                    MidCoordinate_label.Content = "中央座標: x = " + x + " , y = " + y;
+                }
+                else
+                {
+                    LeftUpCoordinate_label.Content = "左上座標: x = -1 , y = -1";
+                    MidCoordinate_label.Content = "中央座標: x = -1 , y = -1";
+                    RedRect_canvas.Children.Clear();
                 }
                 if (MainImage_radio.IsChecked==false)
                 {
