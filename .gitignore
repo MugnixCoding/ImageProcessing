@@ -1,3 +1,5 @@
 
 PictureFind/.vs/PictureFind/v17/.suo
 *.vsidx
+TextIdentify/TextIdentify/bin
+TextIdentify/packages/PaddleOCRSharp.4.1.0

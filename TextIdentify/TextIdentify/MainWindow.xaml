@@ -1,0 +1,64 @@
+﻿<Window x:Class="TextIdentify.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TextIdentify"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="Black" BorderThickness="2">
+            <Grid Background="DarkGray" Grid.Column="0">
+                <StackPanel Orientation="Vertical" Margin="30,0,0,0">
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="主要圖片" FontSize="17" Margin="-5,0,0,0"/>
+                    </StackPanel>
+                    <TextBox x:Name="MainFileName_textbox" HorizontalContentAlignment="Right"  FontSize="17" Margin="0,0,20,0" />
+                    <StackPanel Orientation="Horizontal" Margin="-5,0,0,10">
+                        <Label Content="選擇檔案:" FontSize="17"/>
+                        <Button x:Name="MainFileSelect_button" Content="選擇" FontSize="15" Height="23" Width="55" Click="MainFileSelect_button_Click"/>
+                    </StackPanel>
+
+                    <Label Content="找圖選項" FontSize="15"  Margin="-5,0,0,0"/>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" Margin="-5,0,0,0">
+                            <Label Content="文字座標   x:  " FontSize="15" />
+                            <TextBox x:Name="Xcoordi_texbox" Text="0" TextAlignment="Right" VerticalContentAlignment="Center" Padding="0,0,5,0" FontSize="15" Width="60" 
+                                     PreviewTextInput="Number_PreviewTextInput"/>
+                            <Label Content="  y:  " FontSize="15" />
+                            <TextBox x:Name="Ycoordi_texbox" Text="0" TextAlignment="Right" VerticalContentAlignment="Center" Padding="0,0,5,0" FontSize="15" Width="60"
+                                     PreviewTextInput="Number_PreviewTextInput"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="-5,10,0,10">
+                            <Label Content="辨認範圍  寬: " FontSize="15" />
+                            <TextBox x:Name="Width_texbox" Text="0" TextAlignment="Right" VerticalContentAlignment="Center" Padding="0,0,5,0" FontSize="15" Width="60"
+                                     PreviewTextInput="Number_PreviewTextInput"/>
+                            <Label Content=" 高: " FontSize="15" />
+                            <TextBox x:Name="Height_texbox" Text="0" TextAlignment="Right" VerticalContentAlignment="Center" Padding="0,0,5,0" FontSize="15" Width="60"
+                                     PreviewTextInput="Number_PreviewTextInput"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Button x:Name="IdentifyText_button" Content="辨認" FontSize="17" Margin="40,10,70,10" Click="IdentifyText_button_Click"/>
+                    <StackPanel Orientation="Vertical" Background="White" Margin="0,0,20,0">
+                        <TextBox x:Name="OCR_Result_textobx" Height="150" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Grid Background="LightGray" Grid.Column="1">
+            <Border BorderBrush="Black" BorderThickness="2">
+                <Image x:Name="Display_image" Stretch="Uniform" SizeChanged="Display_image_SizeChanged"/>
+            </Border>
+            <Canvas x:Name="RedRect_canvas">
+                <Rectangle x:Name="IdentifyRange_rect" Stroke="Red" StrokeThickness="2" Fill="Transparent" Width="0" Height="0" Canvas.Left="0" Canvas.Top="0"/>
+            </Canvas>
+        </Grid>
+    </Grid>
+</Window>

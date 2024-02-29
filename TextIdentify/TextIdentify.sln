@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextIdentify", "TextIdentify\TextIdentify.csproj", "{F8C64303-29A2-49A1-B614-B535B7CE34A7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8C64303-29A2-49A1-B614-B535B7CE34A7}.Debug|x64.ActiveCfg = Debug|x64
+		{F8C64303-29A2-49A1-B614-B535B7CE34A7}.Debug|x64.Build.0 = Debug|x64
+		{F8C64303-29A2-49A1-B614-B535B7CE34A7}.Release|x64.ActiveCfg = Release|x64
+		{F8C64303-29A2-49A1-B614-B535B7CE34A7}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A838AD06-98E4-4314-933D-BE2D55681275}
+	EndGlobalSection
+EndGlobal
