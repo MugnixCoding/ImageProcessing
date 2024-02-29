@@ -61,6 +61,7 @@
             <Border BorderBrush="Black" BorderThickness="2">
                 <Image x:Name="Display_image" Stretch="Uniform"/>
             </Border>
+            <Canvas x:Name="RedRect_canvas"/>
         </Grid>
     </Grid>
 </Window>

@@ -1,11 +1,15 @@
 ﻿using ImageProcess;
 using Microsoft.Win32;
 using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace PictureFind
 {
@@ -56,9 +60,10 @@ namespace PictureFind
                 if (MainImage_radio.IsChecked==true)
                 {
                     Uri uri = new Uri(fileName);
-                    Display_image.Source = new BitmapImage(uri);
-                    mainPicInfo.width = Convert.ToInt32(Display_image.Source.Width);
-                    mainPicInfo.height = Convert.ToInt32(Display_image.Source.Height);
+                    BitmapImage bitmap = new BitmapImage(uri);
+                    mainPicInfo.width = Convert.ToInt32(bitmap.PixelWidth);
+                    mainPicInfo.height = Convert.ToInt32(bitmap.PixelHeight);
+                    Display_image.Source = bitmap;
                 }
                 else
                 {
@@ -78,9 +83,10 @@ namespace PictureFind
                 if (TargetImage_radio.IsChecked == true)
                 {
                     Uri uri = new Uri(fileName);
-                    Display_image.Source = new BitmapImage(uri);
-                    tartgetPicInfo.width = Convert.ToInt32(Display_image.Source.Width);
-                    tartgetPicInfo.height = Convert.ToInt32(Display_image.Source.Height);
+                    BitmapImage bitmap = new BitmapImage(uri);
+                    tartgetPicInfo.width = Convert.ToInt32(bitmap.PixelWidth);
+                    tartgetPicInfo.height = Convert.ToInt32(bitmap.PixelHeight);
+                    Display_image.Source = bitmap;
                 }
                 else
                 {
@@ -97,6 +103,11 @@ namespace PictureFind
                     ||string.IsNullOrEmpty(Threshhold_textbox.Text))
                 {
                     MessageBox.Show("重新檢查設定");
+                    return;
+                }
+                if (mainPicInfo.width<tartgetPicInfo.width || mainPicInfo.height<tartgetPicInfo.height)
+                {
+                    MessageBox.Show("主要圖片尺寸不可小於目標圖片");
                     return;
                 }
                 double threshhold = double.Parse(Threshhold_textbox.Text) / 100;
@@ -135,6 +146,15 @@ namespace PictureFind
                 {
                     MainImage_radio.IsChecked = true;
                 }
+                RedRect_canvas.Width = Display_image.ActualWidth;
+                RedRect_canvas.Height = Display_image.ActualHeight;
+                double widthScaleValue = Display_image.ActualWidth / Convert.ToDouble(mainPicInfo.width);
+                double heightScaleValue = Display_image.ActualHeight / Convert.ToDouble(mainPicInfo.height);
+                int scaleWidth = Convert.ToInt32(Convert.ToDouble(tartgetPicInfo.width) * widthScaleValue);
+                int scaleHeight = Convert.ToInt32(Convert.ToDouble(tartgetPicInfo.height) * heightScaleValue);
+                int scaleX = Convert.ToInt32(Convert.ToDouble((x - (tartgetPicInfo.width / 2))) * widthScaleValue);
+                int scaleY = Convert.ToInt32(Convert.ToDouble((y - (tartgetPicInfo.height / 2))) * heightScaleValue);
+                DrawRedRect(scaleX, scaleY, scaleWidth, scaleHeight);
             }
             catch (Exception ex)
             {
@@ -148,16 +168,20 @@ namespace PictureFind
                 if (MainImage_radio.IsChecked == true && !string.IsNullOrEmpty(MainFileName_textbox.Text))
                 {
                     Uri uri = new Uri(MainFileName_textbox.Text);
-                    Display_image.Source = new BitmapImage(uri);
-                    mainPicInfo.width = Convert.ToInt32(Display_image.Source.Width);
-                    mainPicInfo.height = Convert.ToInt32(Display_image.Source.Height);
+                    BitmapImage bitmap = new BitmapImage(uri);
+                    mainPicInfo.width = Convert.ToInt32(bitmap.PixelWidth);
+                    mainPicInfo.height = Convert.ToInt32(bitmap.PixelHeight);
+                    Display_image.Source = bitmap;
+                    RedRect_canvas.Visibility = Visibility.Visible;
                 }
                 else if (TargetImage_radio.IsChecked == true && !string.IsNullOrEmpty(TargetFileName_textbox.Text))
                 {
                     Uri uri = new Uri(TargetFileName_textbox.Text);
-                    Display_image.Source = new BitmapImage(uri);
-                    tartgetPicInfo.width = Convert.ToInt32(Display_image.Source.Width);
-                    tartgetPicInfo.height = Convert.ToInt32(Display_image.Source.Height);
+                    BitmapImage bitmap = new BitmapImage(uri);
+                    tartgetPicInfo.width = Convert.ToInt32(bitmap.PixelWidth);
+                    tartgetPicInfo.height = Convert.ToInt32(bitmap.PixelHeight);
+                    Display_image.Source = bitmap;
+                    RedRect_canvas.Visibility = Visibility.Hidden;
                 }
             }
             catch(Exception ex)
@@ -229,6 +253,19 @@ namespace PictureFind
                 MessageBox.Show("發生錯誤：" + ex.Message);
                 return "";
             }
+        }
+        private void DrawRedRect(int x,int y,int width,int height)
+        {
+            RedRect_canvas.Children.Clear();
+            Rectangle rect = new Rectangle();
+            rect.Width = width;
+            rect.Height = height;
+            rect.Stroke = Brushes.Red;
+            rect.StrokeThickness = 1;
+            rect.Fill = Brushes.Transparent;
+            RedRect_canvas.Children.Add(rect);
+            Canvas.SetLeft(rect,Convert.ToDouble(x));
+            Canvas.SetTop(rect, Convert.ToDouble(y));
         }
 
     }
