@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PictureFind"
         mc:Ignorable="d"
-        Title="Picture Find" Height="450" Width="800">
+        Title="Picture Find" Height="450" Width="800"
+        Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
@@ -16,10 +17,10 @@
                 <StackPanel Orientation="Vertical" Margin="30,0,0,0">
 
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="主圖片" FontSize="17" Margin="-5,0,0,0"/>
+                        <Label Content="主要圖片" FontSize="17" Margin="-5,0,0,0"/>
                         <RadioButton x:Name="MainImage_radio" GroupName="DisplayImage" IsChecked="True" VerticalAlignment="Center"/>
                     </StackPanel>
-                    <TextBox x:Name="MainFileName_textbox" FontSize="17" Margin="0,0,20,0" />
+                    <TextBox x:Name="MainFileName_textbox" HorizontalContentAlignment="Right"  FontSize="17" Margin="0,0,20,0" />
                     <StackPanel Orientation="Horizontal" Margin="-5,0,0,10">
                         <Label Content="選擇檔案:" FontSize="17"/>
                         <Button x:Name="MainFileSelect_button" Content="選擇" FontSize="15" Height="23" Width="55" Click="MainFileSelect_button_Click"/>
@@ -27,7 +28,7 @@
 
                     <StackPanel Orientation="Horizontal">
                         <Label Content="目標圖片" FontSize="17" Margin="-5,0,0,-5"/>
-                        <RadioButton x:Name="TargetImage_radio" GroupName="DisplayImage" VerticalAlignment="Center" Margin="0,4,0,0"/>
+                        <RadioButton x:Name="TargetImage_radio" GroupName="DisplayImage" VerticalAlignment="Center" Margin="0,4,0,0" />
                     </StackPanel>
                     <TextBox x:Name="TargetFileName_textbox" FontSize="17" Margin="0,0,20,0" />
                     <StackPanel Orientation="Horizontal" Margin="-5,0,0,10">
@@ -41,6 +42,12 @@
                         <RadioButton x:Name="GB_radio"  GroupName="SearchOption" Content="高斯模糊" FontSize="15" Margin="0,0,20,0"/>
                         <RadioButton x:Name="IP_radio" GroupName="SearchOption" Content="忽略粉色" FontSize="15"/>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="相似度:" FontSize="15"/>
+                        <TextBox x:Name="Threshhold_textbox" Text="80" TextAlignment="Right" Padding="0,0,5,0" FontSize="15" Width="70" Height="24" 
+                                 PreviewTextInput="Number_PreviewTextInput" TextChanged="TextBox_TextChanged_Percent"/>
+                        <Label Content="%"/>
+                    </StackPanel>
 
                     <Button x:Name="FindImage_button" Content="尋找" FontSize="17" Margin="40,10,70,10" Click="FindImage_button_Click"/>
                     <StackPanel Orientation="Vertical" Background="White" Margin="0,0,20,0">
@@ -52,7 +59,7 @@
         </Border>
         <Grid Background="LightGray" Grid.Column="1">
             <Border BorderBrush="Black" BorderThickness="2">
-                <Image x:Name="Target_image"/>
+                <Image x:Name="Display_image" Stretch="Uniform"/>
             </Border>
         </Grid>
     </Grid>
